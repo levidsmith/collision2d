@@ -6,7 +6,8 @@ using UnityEngine;
 public class CollisionDemo : MonoBehaviour {
     void Start() {
         //rectangleRectangleCollision();
-        circlecircleCollision();
+        // circlecircleCollision();
+        lineLineCollision();
         
     }
 
@@ -30,6 +31,34 @@ public class CollisionDemo : MonoBehaviour {
 
 
     }
+
+    private void lineLineCollision() {
+        Line line1 = new Line(4,5,6,1);
+        Line line2 = new Line(2, 3, 3, 4);
+        
+        float m1 = (line1.y2 - line1.y1) / (line1.x2 - line1.x1);
+        float b1 = line1.y1 - (m1 * line1.x1);
+
+        float m2 = (line2.y2 - line2.y1) / (line2.x2 - line2.x1);
+        float b2 = line2.y1 - (m2 * line2.x1);
+
+        float x = (-b1 + b2) / (m1 - m2);
+
+        if ( (x >= Mathf.Min(line1.x1, line1.x2)) &&
+             (x <= Mathf.Max(line1.x1, line1.x2)) &&
+             (x >= Mathf.Min(line2.x1, line2.x2)) &&
+             (x <= Mathf.Max(line2.x1, line2.x2))
+             ) {
+            //collision
+            Debug.Log("collided");
+        }
+
+        //Debug.Log("Line: slope: " + fSlope + " b: " + b);
+
+
+    }
+
+
 
     private void pointRectangleCollision() {
         Rectangle r1 = new Rectangle(2, 1, 4, 3);

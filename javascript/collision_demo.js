@@ -138,6 +138,11 @@ function draw() {
         collisionPointLine(obj2, obj1);
     }
 
+    if (obj1 instanceof Line && obj2 instanceof Line) {
+        collisionLineLine(obj1, obj2);
+    }
+
+
     if (obj1 instanceof Point && obj2 instanceof Rectangle) {
         collisionPointRectangle(obj1, obj2);
     } else if (obj1 instanceof Rectangle && obj2 instanceof Point) {
@@ -209,10 +214,10 @@ function collisionPointPoint(p1, p2) {
 function collisionPointLine(p1, l1) {
     isCollision = false;
 
-    slope = (l1.y2 - l1.y1) / (l1.x2 - l1.x1);
-    b = l1.y1 - (slope * l1.x1);
+    m = (l1.y2 - l1.y1) / (l1.x2 - l1.x1);
+    b = l1.y1 - (m * l1.x1);
 
-    if (p1.y == (slope * p1.x) + b) {
+    if (p1.y == (m * p1.x) + b) {
         isCollision = true;
     }
 
@@ -220,6 +225,36 @@ function collisionPointLine(p1, l1) {
     displayCollided(isCollision);
     return isCollision;
 }
+
+
+function collisionLineLine(l1, l2) {
+    
+    isCollision = false;
+
+    m1 = (l1.y2 - l1.y1) / (l1.x2 - l1.x1);
+    b1 = l1.y1 - (m1 * l1.x1);
+
+    m2 = (l2.y2 - l2.y1) / (l2.x2 - l2.x1);
+    b2 = l2.y1 - (m2 * l2.x1);
+
+    x = (-b1 + b2)/(m1 - m2);
+    if ( (x >= Math.min(l1.x1, l1.x2)) &&
+         (x <= Math.max(l1.x1, l1.x2)) &&
+         (x >= Math.min(l2.x1, l2.x2)) &&
+         (x <= Math.max(l2.x1, l2.x2))
+      ) {
+          isCollision = true;
+      }
+
+//    if (p1.y == (slope * p1.x) + b) {
+//        isCollision = true;
+//    }
+
+
+    displayCollided(isCollision);
+    return isCollision;
+}
+
 
 function collisionPointRectangle(p1, r1) {
     isCollision = false;
