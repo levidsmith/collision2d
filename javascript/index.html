@@ -1,5 +1,11 @@
 <html>
     <head>
+        <style>
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 12pt;
+            }
+        </style>
         <script src="collision_demo.js"></script>
 
     </head>
@@ -13,9 +19,38 @@
         Object 2: <input id="inputData2" size="50">
         <br/>
         <br/>
-        <button type="button" onclick="draw()">Check Collision</button>
+        <button type="button" onclick="checkCollision()">Check Collision</button>
         <br/>
         <br/>
+        Supported objects
+        <br/>
+        Point: p(x,y)
+        <br/>
+        Line: l(x1, y2, x2, y2)
+        <br/>
+        Rectangle: r(x, y, w, h)
+        <br/>
+        Circle: r(x, y, r)
+        <br/>
+        <br/>
+        Supported collisions
+        <br/>
+        Point, Point
+        <br/>
+        Point, Line
+        <br/>
+        Line, Line
+        <br/>
+        Point, Rectangle
+        <br/>
+        Rectangle, Rectangle
+        <br/>
+        Point, Circle
+        <br/>
+        Circle, Circle
+        <br/>
+        <br/>
+
         2022 Levi D. Smith
     </body>
 </html>

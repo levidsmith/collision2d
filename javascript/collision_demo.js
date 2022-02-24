@@ -57,47 +57,51 @@ function start() {
     ctx = canvas.getContext('2d');
     
     drawAxes();
+    checkParams();
 
+}
+
+function checkParams() {
+    strURLQuery = window.location.search;
+    strParams = new URLSearchParams(strURLQuery);
+    objs = strParams.getAll('obj');
+    
+    if (objs.length >= 2) {
+        inputData1 = document.getElementById("inputData1");
+        inputData1.value = objs[0];
+        obj1 = parseData(objs[0]);
+
+        inputData2 = document.getElementById("inputData2");
+        inputData2.value = objs[1];
+        obj2 = parseData(objs[1]);
+        
+        draw();
+    }
 
 
 
 }
 
+function checkCollision() {
 
-function draw() {
+    obj1 = undefined;
     inputData1 = document.getElementById("inputData1");
     obj1 = parseData(inputData1.value);
 
+    obj2 = undefined;
     inputData2 = document.getElementById("inputData2");
     obj2 = parseData(inputData2.value);
 
+
+
+    draw();
+
+}
+
+
+function draw() {
+
     drawAxes();
-
-/*
-    ctx.fillStyle = c_white;
-    ctx.font = "24px Arial";
-    ctx.fillText("hello", 50, 50);
-    ctx.fillText(inputData.value, 50, 80);
-
-//rectangle
-    ctx.strokeStyle = c_red;
-    ctx.lineWidth = 3;
-    ctx.strokeRect(100, 100, 200, 50);
-
-//line
-    ctx.strokeStyle = c_blue;
-    ctx.beginPath();
-    ctx.moveTo(400, 100);
-    ctx.lineTo(450, 150);
-    ctx.stroke();
-
-//Circle
-    ctx.strokeStyle = c_green;
-    
-    ctx.beginPath();
-    ctx.arc(50, 200, 50, 0, 2 * Math.PI, false);
-    ctx.stroke();
-*/
 
     if (obj1 instanceof Point) {
         ctx.strokeStyle = c_red;
@@ -245,11 +249,6 @@ function collisionLineLine(l1, l2) {
       ) {
           isCollision = true;
       }
-
-//    if (p1.y == (slope * p1.x) + b) {
-//        isCollision = true;
-//    }
-
 
     displayCollided(isCollision);
     return isCollision;
